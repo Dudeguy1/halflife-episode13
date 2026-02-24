@@ -241,6 +241,25 @@
 				/obj/item/ammo_box/magazine/m4a1
 				)
 
+//supply crate loot, for the supply crate
+/obj/effect/spawner/random/halflife/loot/supplies
+	name = "supply crate loot"
+
+	loot = list(
+				/obj/item/ammo_box/magazine/mp7 = 5,
+				/obj/item/storage/box/lethalshot/halflife = 3,
+				/obj/item/ammo_box/magazine/usp9mm = 5,
+				/obj/item/ammo_box/colta357 = 3,
+				/obj/item/grenade/syndieminibomb/bouncer = 2,
+				/obj/item/ammo_casing/rebar = 2,
+				/obj/item/reagent_containers/pill/patch/medkit/vial = 2,
+				/obj/item/reagent_containers/pill/patch/medkit = 2,
+				/obj/item/ammo_box/magazine/ar2 = 2,
+				/obj/item/ammo_casing/a20mm,
+				/obj/item/ammo_casing/pulse/energyball
+
+	)
+
 //common loot, but some of the worse stuff is tossed out, many good things come with more quantity, and small chance for higher tier items
 /obj/effect/spawner/random/halflife/loot/uncommon
 	name = "uncommon loot"

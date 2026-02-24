@@ -107,3 +107,21 @@
 	max_integrity = 150
 	ammo_amount = 3
 	recharges = FALSE
+
+//////// supply crate stuff ////////
+
+/obj/machinery/supply_crate
+	name = "Supply Crate"
+	desc = "A small, wooden crate of supplies that might be useful. Must be broken open to reveal it's contents."
+	icon = 'hl13/icons/obj/miscellaneous.dmi'
+	icon_state = "supplycrate"
+	max_integrity = 18 //weak enough to be destroyed by a crowbar in a single hit
+	var/supply_amount = 3
+	hl13hit_sounds = SFX_WOODIMPACT
+
+/obj/machinery/supply_crate/deconstruct(disassembled = TRUE)
+	while(supply_amount != 0)
+		new /obj/effect/spawner/random/halflife/loot/supplies(loc)
+		supply_amount--
+	new /obj/item/stack/sheet/mineral/wood(loc, 2)
+	qdel(src)
