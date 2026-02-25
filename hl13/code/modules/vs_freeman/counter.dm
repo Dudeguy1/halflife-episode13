@@ -19,7 +19,11 @@ GLOBAL_VAR_INIT(number_of_freemen, 0)
 
 	var/candidates_left = 0
 
-	var/combine_players = 24
+	var/combine_players = 65 //freeman has to take out an entire sector to win we'll figure out if this is balanced later
+
+	var/hunter_time = 5 MINUTES
+
+	var/hunters_give = 1
 
 /obj/machinery/vs_freeman_time_counter/Initialize(mapload)
 	..()
@@ -76,11 +80,10 @@ GLOBAL_VAR_INIT(number_of_freemen, 0)
 		attempt_pick_freeman()
 
 /obj/machinery/vs_freeman_time_counter/process()
-
 	if(GLOB.deployment_flag_grace_period < 1 SECONDS)
 		if(!time_ticking)
 			time_ticking = TRUE
-			to_chat(world, span_danger(span_slightly_larger(span_bold("Grace period up, let the hunt begin."))))
+			to_chat(world, span_danger(span_slightly_larger(span_bold("Grace period up, it's time to hunt down the Freeman."))))
 			for(var/X in GLOB.deployment_hidden_players)
 				var/mob/living/carbon/human/H = X
 				SEND_SOUND(H, 'hl13/sound/effects/hidden_start_round.ogg')
@@ -88,18 +91,26 @@ GLOBAL_VAR_INIT(number_of_freemen, 0)
 				var/mob/living/carbon/human/H = X
 				SEND_SOUND(H, 'hl13/sound/effects/hidden_start_round.ogg')
 
+		if(hunter_time < 1 SECONDS)
+			to_chat(world, span_danger(span_slightly_larger(span_bold("Combine have received [hunters_given] hunter unit[hunters_given == 1 ? "" : "s"]."))))
+			GLOB.freeman_tiers += hunters_given
+			hunters_given++
+			hunter_time = 5 MINUTES
+		else
+			hunter_time -= 1 SECONDS
+
 		if(combine_players <= SSticker.tdm_combine_deaths && SSticker.IsRoundInProgress())
 			priority_announce("All delegate biosignals lost. Mission failure detected.", "Overwatch Priority Alert")
 			GLOB.deployment_win_team = FREEMAN_DEPLOYMENT_FACTION
 			SSticker.force_ending = FORCE_END_ROUND
-			to_chat(world, span_infoplain(span_slightly_larger(span_bold("All Combine are dead, Freeman wins."))))
+			to_chat(world, span_infoplain(span_slightly_larger(span_bold("SUBJECT: FREEMAN. STATUS: HIRED. AWAITING ASSIGNMENT."))))
 			STOP_PROCESSING(SSprocessing, src)
 
 		if(GLOB.number_of_freemen < 1 && SSticker.IsRoundInProgress())
 			priority_announce("Anticitizen One amputated. Mission complete.", "Overwatch Priority Alert")
 			GLOB.deployment_win_team = COMBINE_DEPLOYMENT_FACTION
 			SSticker.force_ending = FORCE_END_ROUND
-			to_chat(world, span_infoplain(span_slightly_larger(span_bold("Freeman was killed, the Combine win."))))
+			to_chat(world, span_infoplain(span_slightly_larger(span_bold("ASSIGNMENT: TERMINATED. SUBJECT: FREEMAN. REASON: DEMONSTRATION OF EXCEEDINGLY POOR JUDGMENT."))))
 			STOP_PROCESSING(SSprocessing, src)
 
 

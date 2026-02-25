@@ -115,6 +115,7 @@
 	desc = "A small, wooden crate of supplies that might be useful. Must be broken open to reveal it's contents."
 	icon = 'hl13/icons/obj/miscellaneous.dmi'
 	icon_state = "supplycrate"
+	density = TRUE
 	max_integrity = 18 //weak enough to be destroyed by a crowbar in a single hit
 	var/supply_amount = 3
 	hl13hit_sounds = SFX_WOODIMPACT

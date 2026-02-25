@@ -1,8 +1,8 @@
 //The combine are supposed to Hunt Down The Freeman this guy.
 /datum/outfit/deployment_loadout/freeman/the_freeman
-	name = "VS Freeman: The Free Man"
-	display_name = "The Free Man"
-	desc = "Time to fuck up someone's face."
+	name = "VS Freeman: Gordon Freeman" //this is the real deal, no random dude in an hev suit with a shotgun
+	display_name = "Gordon Freeman"
+	desc = "..."
 
 	uniform = /obj/item/clothing/under/citizen/rebel
 	back = /obj/item/storage/backpack/halflife/satchel/huge
