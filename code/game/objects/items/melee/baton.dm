@@ -101,6 +101,13 @@
 	var/list/modifiers = params2list(params)
 	switch(baton_attack(target, user, modifiers))
 		if(BATON_DO_NORMAL_ATTACK)
+			if(ishuman(target))
+				var/mob/living/carbon/human/H = target
+				var/datum/mind/M = H.mind
+				if(M && (M.assigned_role?.title == JOB_ASSISTANT || M.assigned_role?.title == "Prisoner" || M.assigned_role?.title == JOB_PRISONER || isvortigaunt(H)))
+					if(H.stat == DEAD)
+						return FALSE
+					GLOB.beating_quota -= 4 //it's gonna count the one in finalize_baton_attack(), so really this is 5 total
 			return ..()
 		if(BATON_ATTACKING)
 			finalize_baton_attack(target, user, modifiers)
@@ -208,12 +215,9 @@
 			var/mob/living/carbon/human/H = target
 			var/datum/mind/M = H.mind
 			if(M && (M.assigned_role?.title == JOB_ASSISTANT || M.assigned_role?.title == "Prisoner" || M.assigned_role?.title == JOB_PRISONER || isvortigaunt(H)))
-				var/quota_to_give = 1
-				if(user.combat_mode)
-					quota_to_give = 5
 				if(H.stat == DEAD)
 					return FALSE
-				GLOB.beating_quota -= quota_to_give
+				GLOB.beating_quota -= 1
 
 
 /obj/item/melee/baton/proc/baton_effect(mob/living/target, mob/living/user, modifiers, stun_override)

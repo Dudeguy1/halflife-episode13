@@ -713,7 +713,7 @@
 	SSwardrobe.provide_type(/obj/item/gun/ballistic/automatic/pistol/usp/suppressed/solid, src)
 
 /obj/item/storage/backpack/halflife/satchel/civilprotection/solid/smash/PopulateContents()
-	SSwardrobe.provide_type(/obj/item/gun/ballistic/rocketlauncher/halflife, src)
+	SSwardrobe.provide_type(/obj/item/gun/ballistic/rocketlauncher/halflife/nobackblast, src)
 
 /obj/item/reagent_containers/pill/patch/medkit/ration
 	name = "Ration"

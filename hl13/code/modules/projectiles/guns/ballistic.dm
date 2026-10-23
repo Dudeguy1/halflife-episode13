@@ -1157,6 +1157,12 @@
 
 	weapon_category = WEAPON_CAT_SPECIALTY
 
+/obj/item/gun/ballistic/rocketlauncher/halflife/nobackblast
+	desc = "A reusable rocket propelled grenade launcher. An arrow pointing toward the front of the launcher \
+		alongside the words \"Front Toward Enemy\" are printed on the tube. It's weight and heft prevent you from stowing \
+		it, and significantly slows you down. Supposedly, the armor piercing rockets this thing fires excel at taking down Hunter synths."
+	backblast = FALSE
+
 /obj/item/gun/ballistic/rocketlauncher/halflife/deployment_pin
 	pin = /obj/item/firing_pin/implant/pindicate
 
